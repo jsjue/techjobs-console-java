@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -73,15 +74,37 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
+            String original_value = row.get(column); //get data from the target "column"
 
-            String aValue = row.get(column);
+            String aValue = original_value.toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value)) { //if the "value" contains the characters of the "key"
                 jobs.add(row);
             }
         }
 
         return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue (String searchTerm) {
+        //query all columns for a "character set" then return the job associated then return the listing associated
+        loadData();
+        //call an empty list of Hash maps to hold the query results
+        for (HashMap<String, String> job :allJobs) {
+            Boolean containsTerm = false;
+            for (Map.Entry<String, String> row : job.entrySet()) {
+                String original_value.toLowerCase();
+                if (value.contains(searchTerm)) {
+                    containsTerm = true;
+                    break;
+                }
+
+            }
+            if(containsTerm == true) {
+                allJobs.add(job);
+            }
+        }
+        return allJobs;
     }
 
     /**
