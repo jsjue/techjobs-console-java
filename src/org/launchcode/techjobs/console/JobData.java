@@ -58,12 +58,12 @@ public class JobData {
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
-     *
+     * <p>
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param column Column that should be searched.
+     * @param value  Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -74,9 +74,8 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-            String original_value = row.get(column); //get data from the target "column"
+            String aValue = row.get(column); //get data from the target "column"
 
-            String aValue = original_value.toLowerCase();
 
             if (aValue.contains(value)) { //if the "value" contains the characters of the "key"
                 jobs.add(row);
@@ -86,26 +85,39 @@ public class JobData {
         return jobs;
     }
 
-    public static ArrayList<HashMap<String, String>> findByValue (String searchTerm) {
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
         //query all columns for a "character set" then return the job associated then return the listing associated
+        value = value.toLowerCase();
         loadData();
+
+        ArrayList<HashMap<String, String>> allColumns = new ArrayList<>();
+        for (HashMap<String, String> row : allJobs) {
+            for (Map.Entry<String, String> column : row.entrySet()) {
+                String search = column.getValue();
+                if (search.toLowerCase().contains(value)) {
+                    allColumns.add(row);
+                }
+            }
+        }
+        return allColumns;
+
         //call an empty list of Hash maps to hold the query results
-        for (HashMap<String, String> job :allJobs) {
-            Boolean containsTerm = false;
-            for (Map.Entry<String, String> row : job.entrySet()) {
-                String original_value.toLowerCase();
-                if (value.contains(searchTerm)) {
-                    containsTerm = true;
-                    break;
+        // for (HashMap<String, String> job :allJobs) {
+        //    Boolean containsTerm = false;
+        //    for (Map.Entry<String, String> row : job.entrySet()) {
+        //        //String aValue = original_value.toLowerCase();
+        //        if (String.contains(searchTerm)) {
+        //            containsTerm = true;
+        //            break;
                 }
 
-            }
-            if(containsTerm == true) {
+/*            }
+            if contains() == true {
                 allJobs.add(job);
             }
         }
         return allJobs;
-    }
+/    }
 
     /**
      * Read in data from a CSV file and store it in a list
