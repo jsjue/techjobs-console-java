@@ -60,10 +60,10 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("Search term: ");
                 String searchTerm = in.nextLine();
-                System.out.println("/n");
-//                    System.out.println("searchField: "+searchField);
-//                    System.out.println("searchTerm:  "+searchTerm);
-//                    printJobs(JobData.searchByColumnsAndValue(searchField, searchTerm))
+                System.out.println();
+                      System.out.println("searchField: "+searchField);
+                      System.out.println("searchTerm:  "+searchTerm);
+                     // printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
 
                 if (searchField.equals("all") & searchTerm.equals("")){
                     printJobs(JobData.findAll());
